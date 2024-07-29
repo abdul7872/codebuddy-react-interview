@@ -2,6 +2,8 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import PropTypes from "prop-types";
+import { Icon } from "@iconify/react/dist/iconify.js";
+import { useState } from "react";
 
 const schema = yup.object({
   emailId: yup.string().email("Invalid email").required("Email is required"),
@@ -15,6 +17,7 @@ const schema = yup.object({
 });
 
 const Form1 = ({ onNext, formData }) => {
+  const [showPassword, setShowPassword] = useState(false);
   const {
     register,
     handleSubmit,
@@ -37,17 +40,24 @@ const Form1 = ({ onNext, formData }) => {
         />
         {errors.emailId && <p className="text-sm text-red-500">{errors.emailId.message}</p>}
       </div>
-      <div className="mb-4">
+      <div className="relative mb-4">
         <label className="block text-sm font-medium text-gray-700">Password</label>
         <input
           {...register("password")}
-          type="password"
+          type={showPassword ? "text" : "password"}
           className="mt-1 w-full rounded-md border border-gray-300 p-2"
           placeholder="Password"
         />
+        <button
+          type="button"
+          onClick={() => setShowPassword(!showPassword)}
+          className="absolute inset-y-11 right-0 flex items-center pr-3 text-gray-500"
+        >
+          <Icon icon={showPassword ? "mdi:eye" : "ion:eye-off"} className="h-5 w-5" />
+        </button>
         {errors.password && <p className="text-sm text-red-500">{errors.password.message}</p>}
       </div>
-      <div className="flex justify-between">
+      <div className="flex flex-col justify-between gap-2 sm:flex-row">
         <button
           type="button"
           disabled

@@ -7,22 +7,24 @@ const MultiStepForm = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({});
 
-  console.log(formData, '123')
   const handleNext = (data) => {
-    setFormData((prev) => ({ ...prev, ...data }));
-    currentStep === 3 ? handleSave() : setCurrentStep(currentStep + 1);
+    const updateData = { ...formData, ...data };
+    setFormData(updateData);
+    currentStep === 3 ? handleSave(updateData) : setCurrentStep(currentStep + 1);
   };
 
   const handleBack = () => {
     setCurrentStep(currentStep - 1);
   };
 
-  const handleSave = async () => {
+  const handleSave = async (payload) => {
     try {
+      delete payload.acceptTermsAndCondition;
+
       const response = await fetch("https://codebuddy.review/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(payload),
       });
       const result = await response.json();
       console.log(result);
@@ -35,7 +37,7 @@ const MultiStepForm = () => {
   };
 
   return (
-    <div className="flex">
+    <div className="flex flex-col sm:flex-row">
       <div className="flex flex-col w-30 rounded-md bg-gray-200 h-full px-4 py-6">
         <button
           onClick={() => setCurrentStep(1)}
@@ -56,7 +58,7 @@ const MultiStepForm = () => {
           Form 3
         </button>
       </div>
-      <div className="flex-1 p-4">
+      <div className="flex-1">
         {currentStep === 1 && <Form1 onNext={handleNext} formData={formData} />}
         {currentStep === 2 && <Form2 onNext={handleNext} formData={formData} onBack={handleBack} />}
         {currentStep === 3 && <Form3 onSave={handleNext} formData={formData} onBack={handleBack} />}

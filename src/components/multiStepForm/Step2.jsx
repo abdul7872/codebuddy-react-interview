@@ -60,7 +60,7 @@ const Form2 = ({ onNext, onBack, formData }) => {
         />
         {errors.address && <p className="text-sm text-red-500">{errors.address.message}</p>}
       </div>
-      <div className="flex justify-between">
+      <div className="flex flex-col justify-between gap-2 sm:flex-row">
         <button
           type="button"
           onClick={onBack}

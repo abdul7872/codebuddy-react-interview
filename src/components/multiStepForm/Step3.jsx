@@ -60,7 +60,7 @@ const Form3 = ({ onSave, onBack, formData }) => {
           <p className="text-sm text-red-500">{errors.acceptTermsAndCondition.message}</p>
         )}
       </div>
-      <div className="flex justify-between">
+      <div className="flex flex-col justify-between gap-2 sm:flex-row">
         <button
           type="button"
           onClick={onBack}
@@ -71,7 +71,11 @@ const Form3 = ({ onSave, onBack, formData }) => {
         <button type="submit" className="rounded-md bg-blue-500 px-4 py-2 text-white">
           Save
         </button>
-        <button type="submit" className="rounded-md bg-blue-500 px-4 py-2 text-white">
+        <button
+          type="submit"
+          disabled
+          className="cursor-not-allowed rounded-md bg-blue-500 px-4 py-2 text-white"
+        >
           Save and Next
         </button>
       </div>
