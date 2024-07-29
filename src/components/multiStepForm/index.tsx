@@ -12,7 +12,7 @@ const MultiStepForm = () => {
   const navigate = useNavigate();
 
   const handleNext = (data) => {
-    if(maxStepDone.current == currentStep){
+    if (maxStepDone.current == currentStep) {
       maxStepDone.current = currentStep + 1;
     }
     const updateData = { ...formData, ...data };
@@ -36,7 +36,7 @@ const MultiStepForm = () => {
       const result = await response.json();
       console.log(result);
       if (result.message === "Success") {
-        navigate('/posts');
+        navigate("/posts");
       }
     } catch (error) {
       console.error("Error:", error);
@@ -58,9 +58,9 @@ const MultiStepForm = () => {
           onClick={() => setCurrentStep(2)}
           disabled={maxStepDone.current < 2}
           className={`mb-4 rounded-md p-3 text-left
-            disabled:opacity-70 disabled:cursor-not-allowed ${
-            currentStep === 2 ? "bg-blue-500 text-white" : "bg-white text-black"
-          }`}
+            disabled:cursor-not-allowed disabled:opacity-70 ${
+              currentStep === 2 ? "bg-blue-500 text-white" : "bg-white text-black"
+            }`}
         >
           Form 2
         </button>
@@ -68,8 +68,8 @@ const MultiStepForm = () => {
           onClick={() => setCurrentStep(3)}
           disabled={maxStepDone.current < 3}
           className={`rounded-md p-3 text-left
-            disabled:opacity-70 disabled:cursor-not-allowed 
-            ${ currentStep === 3 ? "bg-blue-500 text-white" : "bg-white text-black"}
+            disabled:cursor-not-allowed disabled:opacity-70 
+            ${currentStep === 3 ? "bg-blue-500 text-white" : "bg-white text-black"}
             `}
         >
           Form 3
