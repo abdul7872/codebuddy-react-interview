@@ -14,7 +14,7 @@ const Home = () => {
 
       <MultiStepForm />
 
-      <Link to="/posts" className="flex items-center text-blue-600 hover:underline">
+      <Link to="/posts" className="flex w-fit items-center text-blue-600 hover:underline">
         Posts
         <Icon icon="mdi:arrow-right" className="ml-2" />
       </Link>

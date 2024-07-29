@@ -6,12 +6,12 @@ import PropTypes from "prop-types";
 const schema = yup.object({
   countryCode: yup
     .string()
-    .oneOf(["+91", "+1"], "Invalid country code")
-    .required("Country code is required"),
+    .required("Country code is required")
+    .oneOf(["+91", "+1"], "Invalid country code"),
   phoneNumber: yup
     .string()
-    .matches(/^\d{10}$/, "Phone number must be 10 digits")
-    .required("Phone number is required"),
+    .required("Phone number is required")
+    .matches(/^\d{10}$/, "Phone number must be 10 digits"),
   acceptTermsAndCondition: yup.bool().oneOf([true], "You must accept the terms and conditions"),
 });
 
@@ -74,7 +74,7 @@ const Form3 = ({ onSave, onBack, formData }) => {
         <button
           type="submit"
           disabled
-          className="cursor-not-allowed rounded-md bg-blue-500 px-4 py-2 text-white"
+          className="cursor-not-allowed rounded-md bg-blue-500 px-4 py-2 text-white disabled:cursor-not-allowed disabled:opacity-70"
         >
           Save and Next
         </button>

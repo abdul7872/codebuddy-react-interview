@@ -6,15 +6,15 @@ import PropTypes from "prop-types";
 const schema = yup.object({
   firstName: yup
     .string()
+    .required("First name is required")
     .matches(/^[A-Za-z]+$/, "Only alphabets are allowed")
     .min(2, "First Name must be at least 2 characters")
-    .max(50, "First Name must be at most 50 characters")
-    .required("First name is required"),
+    .max(50, "First Name must be at most 50 characters"),
   lastName: yup.string().matches(/^[A-Za-z]*$/, "Only alphabets are allowed"),
   address: yup
     .string()
-    .min(10, "Address must be at least 10 characters")
-    .required("Address is required"),
+    .required("Address is required")
+    .min(10, "Address must be at least 10 characters"),
 });
 
 const Form2 = ({ onNext, onBack, formData }) => {

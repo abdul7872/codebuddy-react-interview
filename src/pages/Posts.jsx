@@ -1,7 +1,28 @@
 import { Icon } from "@iconify/react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import PostDetails from "../components/post";
 
 const Posts = () => {
+  const [posts, setPosts] = useState([]);
+
+  const fetchPosts = async () => {
+    try {
+      const response = await fetch("https://codebuddy.review/posts");
+      const responseData = await response.json();
+      console.log(responseData, "123");
+      setPosts(responseData?.data);
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchPosts();
+  }, []);
+
+  console.log(posts, "1235");
+
   return (
     <div className="rounded-lg bg-gray-50 p-7 text-gray-900 shadow-lg">
       <h1 className="mb-7 text-4xl font-bold">Posts</h1>
@@ -10,31 +31,10 @@ const Posts = () => {
         Back to Home
       </Link>
 
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-        <div className="rounded-lg bg-white p-7 shadow-lg">
-          <h2 className="text-2xl font-bold">Post 1</h2>
-          <p className="text-gray-700">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo voluptatem, quibusdam,
-            quos, voluptatum voluptas quod quas voluptates quia doloribus nobis voluptatibus. Quam,
-            voluptate voluptatum. Quod, voluptate? Quisquam, voluptate voluptatum.
-          </p>
-        </div>
-        <div className="rounded-lg bg-white p-7 shadow-lg">
-          <h2 className="text-2xl font-bold">Post 2</h2>
-          <p className="text-gray-700">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo voluptatem, quibusdam,
-            quos, voluptatum voluptas quod quas voluptates quia doloribus nobis voluptatibus. Quam,
-            voluptate voluptatum. Quod, voluptate? Quisquam, voluptate voluptatum.
-          </p>
-        </div>
-        <div className="rounded-lg bg-white p-7 shadow-lg">
-          <h2 className="text-2xl font-bold">Post 3</h2>
-          <p className="text-gray-700">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo voluptatem, quibusdam,
-            quos, voluptatum voluptas quod quas voluptates quia doloribus nobis voluptatibus. Quam,
-            voluptate voluptatum. Quod, voluptate? Quisquam, voluptate voluptatum.
-          </p>
-        </div>
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {posts?.map((post) => (
+          <PostDetails key={post?.id} post={post} />
+        ))}
       </div>
     </div>
   );

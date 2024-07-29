@@ -1,15 +1,22 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Form1 from "./Step1";
 import Form2 from "./Step2";
 import Form3 from "./Step3";
+import { useNavigate } from "react-router-dom";
 
 const MultiStepForm = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({});
+  const maxStepDone = useRef(1);
+
+  const navigate = useNavigate();
 
   const handleNext = (data) => {
+    if(maxStepDone.current == currentStep){
+      maxStepDone.current = currentStep + 1;
+    }
     const updateData = { ...formData, ...data };
-    setFormData(updateData);
+    setFormData({ ...updateData });
     currentStep === 3 ? handleSave(updateData) : setCurrentStep(currentStep + 1);
   };
 
@@ -28,9 +35,9 @@ const MultiStepForm = () => {
       });
       const result = await response.json();
       console.log(result);
-      // if (result.message === "Success") {
-      //   window.location.href = "/posts";
-      // }
+      if (result.message === "Success") {
+        navigate('/posts');
+      }
     } catch (error) {
       console.error("Error:", error);
     }
@@ -38,22 +45,32 @@ const MultiStepForm = () => {
 
   return (
     <div className="flex flex-col sm:flex-row">
-      <div className="flex flex-col w-30 rounded-md bg-gray-200 h-full px-4 py-6">
+      <div className="w-30 flex h-full flex-col rounded-md bg-gray-200 px-4 py-6">
         <button
           onClick={() => setCurrentStep(1)}
-          className={`p-3 mb-4 rounded-md text-left ${currentStep === 1 ? 'bg-blue-500 text-white' : 'bg-white text-black'}`}
+          className={`mb-4 rounded-md p-3 text-left ${
+            currentStep === 1 ? "bg-blue-500 text-white" : "bg-white text-black"
+          }`}
         >
           Form 1
         </button>
         <button
           onClick={() => setCurrentStep(2)}
-          className={`p-3 mb-4 rounded-md text-left ${currentStep === 2 ? 'bg-blue-500 text-white' : 'bg-white text-black'}`}
+          disabled={maxStepDone.current < 2}
+          className={`mb-4 rounded-md p-3 text-left
+            disabled:opacity-70 disabled:cursor-not-allowed ${
+            currentStep === 2 ? "bg-blue-500 text-white" : "bg-white text-black"
+          }`}
         >
           Form 2
         </button>
         <button
           onClick={() => setCurrentStep(3)}
-          className={`p-3 rounded-md text-left ${currentStep === 3 ? 'bg-blue-500 text-white' : 'bg-white text-black'}`}
+          disabled={maxStepDone.current < 3}
+          className={`rounded-md p-3 text-left
+            disabled:opacity-70 disabled:cursor-not-allowed 
+            ${ currentStep === 3 ? "bg-blue-500 text-white" : "bg-white text-black"}
+            `}
         >
           Form 3
         </button>

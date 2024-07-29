@@ -24,7 +24,6 @@ const Form1 = ({ onNext, formData }) => {
     formState: { errors },
   } = useForm({ defaultValues: formData, resolver: yupResolver(schema) });
 
-  console.log(formData);
   const onSubmit = (data) => {
     onNext(data);
   };
@@ -61,7 +60,7 @@ const Form1 = ({ onNext, formData }) => {
         <button
           type="button"
           disabled
-          className="cursor-not-allowed rounded-md bg-gray-500 px-4 py-2 text-white"
+          className="rounded-md bg-gray-500 px-4 py-2 text-white disabled:cursor-not-allowed disabled:opacity-70"
         >
           Back
         </button>
