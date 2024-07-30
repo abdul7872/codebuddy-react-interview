@@ -16,7 +16,7 @@ const schema = yup.object({
     .required("Password is required"),
 });
 
-const Form1 = ({ onNext, formData }) => {
+const Form1 = ({ onNext, onSave, formData }) => {
   const [showPassword, setShowPassword] = useState(false);
   const {
     register,
@@ -64,7 +64,10 @@ const Form1 = ({ onNext, formData }) => {
         >
           Back
         </button>
-        <button type="submit" className="rounded-md bg-blue-500 px-4 py-2 text-white">
+        <button
+          onClick={handleSubmit((data) => onSave(data))}
+          className="rounded-md bg-blue-500 px-4 py-2 text-white"
+        >
           Save
         </button>
         <button type="submit" className="rounded-md bg-blue-500 px-4 py-2 text-white">
@@ -80,4 +83,5 @@ export default Form1;
 Form1.propTypes = {
   formData: PropTypes.object,
   onNext: PropTypes.func,
+  onSave: PropTypes.func,
 };

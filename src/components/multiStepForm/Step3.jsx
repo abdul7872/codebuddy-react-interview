@@ -72,7 +72,6 @@ const Form3 = ({ onSave, onBack, formData }) => {
           Save
         </button>
         <button
-          type="submit"
           disabled
           className="cursor-not-allowed rounded-md bg-blue-500 px-4 py-2 text-white disabled:cursor-not-allowed disabled:opacity-70"
         >

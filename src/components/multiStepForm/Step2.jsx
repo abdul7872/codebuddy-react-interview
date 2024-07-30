@@ -17,7 +17,7 @@ const schema = yup.object({
     .min(10, "Address must be at least 10 characters"),
 });
 
-const Form2 = ({ onNext, onBack, formData }) => {
+const Form2 = ({ onNext, onSave, onBack, formData }) => {
   const {
     register,
     handleSubmit,
@@ -68,7 +68,10 @@ const Form2 = ({ onNext, onBack, formData }) => {
         >
           Back
         </button>
-        <button type="submit" className="rounded-md bg-blue-500 px-4 py-2 text-white">
+        <button
+          onClick={handleSubmit((data) => onSave(data))}
+          className="rounded-md bg-blue-500 px-4 py-2 text-white"
+        >
           Save
         </button>
         <button type="submit" className="rounded-md bg-blue-500 px-4 py-2 text-white">
@@ -83,6 +86,7 @@ export default Form2;
 
 Form2.propTypes = {
   onNext: PropTypes.func,
+  onSave: PropTypes.func,
   onBack: PropTypes.func,
   formData: PropTypes.object,
 };

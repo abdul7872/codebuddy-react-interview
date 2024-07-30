@@ -11,20 +11,25 @@ const MultiStepForm = () => {
 
   const navigate = useNavigate();
 
-  const handleNext = (data) => {
+  const handleSaveAndNext = (data) => {
     if (maxStepDone.current == currentStep) {
       maxStepDone.current = currentStep + 1;
     }
     const updateData = { ...formData, ...data };
     setFormData({ ...updateData });
-    currentStep === 3 ? handleSave(updateData) : setCurrentStep(currentStep + 1);
+    currentStep === 3 ? postData(updateData) : setCurrentStep(currentStep + 1);
   };
 
   const handleBack = () => {
     setCurrentStep(currentStep - 1);
   };
 
-  const handleSave = async (payload) => {
+  const handleSave = (data) => {
+    const updateData = { ...formData, ...data };
+    setFormData({ ...updateData });
+  };
+
+  const postData = async (payload) => {
     try {
       delete payload.acceptTermsAndCondition;
 
@@ -76,9 +81,9 @@ const MultiStepForm = () => {
         </button>
       </div>
       <div className="flex-1">
-        {currentStep === 1 && <Form1 onNext={handleNext} formData={formData} />}
-        {currentStep === 2 && <Form2 onNext={handleNext} formData={formData} onBack={handleBack} />}
-        {currentStep === 3 && <Form3 onSave={handleNext} formData={formData} onBack={handleBack} />}
+        {currentStep === 1 && <Form1 onNext={handleSaveAndNext} onSave={handleSave} formData={formData} />}
+        {currentStep === 2 && <Form2 onNext={handleSaveAndNext} onSave={handleSave} formData={formData} onBack={handleBack} />}
+        {currentStep === 3 && <Form3 onSave={handleSaveAndNext} formData={formData} onBack={handleBack} />}
       </div>
     </div>
   );
