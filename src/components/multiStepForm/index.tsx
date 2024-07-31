@@ -81,9 +81,20 @@ const MultiStepForm = () => {
         </button>
       </div>
       <div className="flex-1">
-        {currentStep === 1 && <Form1 onNext={handleSaveAndNext} onSave={handleSave} formData={formData} />}
-        {currentStep === 2 && <Form2 onNext={handleSaveAndNext} onSave={handleSave} formData={formData} onBack={handleBack} />}
-        {currentStep === 3 && <Form3 onSave={handleSaveAndNext} formData={formData} onBack={handleBack} />}
+        {currentStep === 1 && (
+          <Form1 onNext={handleSaveAndNext} onSave={handleSave} formData={formData} />
+        )}
+        {currentStep === 2 && (
+          <Form2
+            onNext={handleSaveAndNext}
+            onSave={handleSave}
+            formData={formData}
+            onBack={handleBack}
+          />
+        )}
+        {currentStep === 3 && (
+          <Form3 onSave={handleSaveAndNext} formData={formData} onBack={handleBack} />
+        )}
       </div>
     </div>
   );

@@ -9,11 +9,11 @@ const schema = yup.object({
   emailId: yup.string().email("Invalid email").required("Email is required"),
   password: yup
     .string()
-    .matches(/[A-Z].*[A-Z]/, "Must contain 2 capital letters")
-    .matches(/[a-z].*[a-z]/, "Must contain 2 small letters")
-    .matches(/\d.*\d/, "Must contain 2 numbers")
-    .matches(/[^A-Za-z0-9].*[^A-Za-z0-9]/, "Must contain 2 special characters")
-    .required("Password is required"),
+    .required("Password is required")
+    .matches(
+      /^(?=(?:\D*\d){2})(?=(?:[^a-z]*[a-z]){2})(?=(?:[^A-Z]*[A-Z]){2})(?=(?:\w*\W){2}).*/,
+      "Must contain minimum 2 capital letters, 2 small letter, 2 numbers and 2 special characters",
+    ),
 });
 
 const Form1 = ({ onNext, onSave, formData }) => {
